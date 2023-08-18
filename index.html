@@ -80,9 +80,13 @@
         text: inputCommentTextElement.value,
         name: inputCommentNameElement.value
       })
-    }).then(() => {
+    })
+    .then(() => {
       return getApi();
     })
+      .then((response) => {
+        return addComment();
+      })
       .then(() => {
         buttonElement.disabled = false;
         buttonElement.textContent = 'Написать';
