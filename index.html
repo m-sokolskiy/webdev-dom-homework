@@ -97,9 +97,6 @@
         return getApi();
       })
       .then(() => {
-        return addComment();
-      })
-      .then(() => {
         buttonElement.disabled = false;
         buttonElement.textContent = 'Написать';
         inputCommentNameElement.value = ""
