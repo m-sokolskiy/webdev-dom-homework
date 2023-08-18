@@ -97,7 +97,7 @@
         return getApi();
       })
       .then(() => {
-        addComment();
+        return addComment();
       })
       .then(() => {
         buttonElement.disabled = false;
