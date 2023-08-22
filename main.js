@@ -8,6 +8,8 @@ const buttonElement = document.getElementById('add-form-button-id');
 const commentListElement = document.getElementById('comment-list');
 const inputCommentNameElement = document.getElementById('input-comment-name');
 const inputCommentTextElement = document.getElementById('input-comment-text');
+// Массив
+let commentsArr = []
 
 // GET API
 getApiModule()
