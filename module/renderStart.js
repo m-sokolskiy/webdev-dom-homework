@@ -1,6 +1,5 @@
-// Это страница с которой запускается приложение.
-// АПИ запрос на получение комментариев.
-// Рендер этих комментариев с ссылкой на авторизацию
+import { addDate } from './date.js';
+
 
 const commentsURL = "https://wedev-api.sky.pro/api/v2/:maksim-sokolskiy/comments"
 
@@ -45,7 +44,7 @@ export const renderStart = (commentsArr) => {
         return `<li  class="comment">
             <div class="comment-header">
               <div>${comment.name}</div>
-              <div>${timeDate}</div>
+              <div>${addDate(comment.date)}</div>
             </div>
             <div class="comment-body">
               <div class="comment-text">${comment.text}</div>

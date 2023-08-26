@@ -2,6 +2,7 @@ import { likes } from './likes.js'
 import { answer } from './answer.js'
 import { comments } from './comments.js';
 import { userName } from './api.js';
+import { addDate } from './date.js';
 
 export const render = (commentsArr) => {
 
@@ -17,7 +18,9 @@ export const render = (commentsArr) => {
             <div>
             ${comment.name}
             </div>
-            <div>${timeDate}</div>
+            <div>
+            ${addDate(comment.date)}
+            </div>
           </div>
           <div class="comment-body">
             <div class="comment-text">${comment.text}</div>
