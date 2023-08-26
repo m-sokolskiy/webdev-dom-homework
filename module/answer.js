@@ -1,6 +1,8 @@
-import {renderModule} from './renderModule.js'
+import {render} from './render.js'
 
-export const answerModule = (commentsArr) => {
+let commentsArr = []
+
+export const answer = (commentsArr) => {
     const answerComment = document.querySelectorAll('.comment');
     const answerCommentTexts = document.querySelectorAll('.comment-text');
     const answerCommentHeaders = document.querySelectorAll('.comment-header');
@@ -9,7 +11,7 @@ export const answerModule = (commentsArr) => {
     answerComment.forEach((answerComment, index) => {
         answerComment.addEventListener('click', () => {
             inputField.value = '>' + ' ' + answerCommentTexts[index].innerText + ' (' + answerCommentHeaders[index].innerText + ')';
-            renderModule(commentsArr)
+            render(commentsArr)
         });
     });
 }

@@ -1,6 +1,6 @@
-import {renderModule} from './renderModule.js'
+import {render} from './render.js'
 
-export const addLikeModule = (commentsArr) => {
+export const likes = (commentsArr) => {
 
     const likeButtonElements = document.querySelectorAll(".like-button");
     
@@ -17,7 +17,7 @@ export const addLikeModule = (commentsArr) => {
                 counter.isLiked = false
                 counter.like--;
             };
-            renderModule(commentsArr)
+            render(commentsArr)
         });
     };
 };

@@ -1,12 +1,30 @@
-import { renderModule } from './renderModule.js'
+import { render } from './render.js'
 
-export const getApiModule = () => {
+const commentsURL = "https://wedev-api.sky.pro/api/v2/:maksim-sokolskiy/comments"
+const userURL = "https://wedev-api.sky.pro/api/user/login"
+
+export let userName;
+
+export const setUserName = (newUserName) => {
+    userName = newUserName;
+}
+
+export let token;
+
+export const setToken = (newToken) => {
+    token = newToken;
+}
+
+export const GET = () => {
     const loadingElement = document.querySelector(".loading");
     loadingElement.textContent = `Лента комментариев загружается...`;
     let commentsArr = [];
 
-    return fetch('https://wedev-api.sky.pro/api/v1/:maksim-sokolskiy/comments', {
-        method: "GET"
+    return fetch(commentsURL, {
+        method: "GET",
+        headers: {
+            authorization: `Bearer ${token}`
+        },
     })
         .then((response) => {
             return response.json();
@@ -23,12 +41,12 @@ export const getApiModule = () => {
             });
             loadingElement.textContent = "";
             commentsArr = appComments;
-            renderModule(commentsArr);
+            render(commentsArr);
         })
 
 };
 
-export const postApiModule = ({ text, name }) => {
+export const POST = ({ text, name }) => {
     const buttonElement = document.getElementById('add-form-button-id');
     const inputCommentNameElement = document.getElementById('input-comment-name');
     const inputCommentTextElement = document.getElementById('input-comment-text');
@@ -36,8 +54,11 @@ export const postApiModule = ({ text, name }) => {
     buttonElement.disabled = true;
     buttonElement.textContent = 'Отправка...';
 
-    return fetch('https://wedev-api.sky.pro/api/v1/:maksim-sokolskiy/comments', {
+    return fetch(commentsURL, {
         method: "POST",
+        headers: {
+            authorization: `Bearer ${token}`
+        },
         body: JSON.stringify({
             text: text,
             name: name
@@ -53,7 +74,7 @@ export const postApiModule = ({ text, name }) => {
             }
         })
         .then(() => {
-            return getApiModule();
+            return GET();
         })
         .then(() => {
             buttonElement.disabled = false;
@@ -65,17 +86,26 @@ export const postApiModule = ({ text, name }) => {
 
             buttonElement.disabled = false;
             buttonElement.textContent = 'Написать';
-      
-            if (error.message === 'Ошибка запроса' || inputCommentTextElement.value.length < 3 || inputCommentNameElement.value.length < 3) {
-              alert("Имя и комментарий должны быть не короче 3 символов");
-              return;
-            } else if (error.message === 'Ошибка сервера') {
-              alert("Сервер сломался, попробуй позже");
-              return;
-            } else {
-              alert("Кажется, у вас сломался интернет, попробуйте позже");
-            }
-      
-          });
 
+            if (error.message === 'Ошибка запроса' || inputCommentTextElement.value.length < 3 || inputCommentNameElement.value.length < 3) {
+                alert("Имя и комментарий должны быть не короче 3 символов");
+                return;
+            } else if (error.message === 'Ошибка сервера') {
+                alert("Сервер сломался, попробуй позже");
+                return;
+            } else {
+                alert("Кажется, у вас сломался интернет, попробуйте позже");
+            }
+
+        });
+};
+
+export const login = ({ login, password }) => {
+    return fetch(userURL, {
+        method: "POST",
+        body: JSON.stringify({
+            login,
+            password,
+        }),
+    })
 };
